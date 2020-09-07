@@ -1,0 +1,64 @@
+{% extends 'account/base.html' %}
+
+{% block body %}
+<a href="{% url 'month' half_previous.year half_previous.month half_previous.day %}">前回</a>
+{{ month_current | date:"Y年m月d〜" }}
+<a href="{% url 'month' half_next.year half_next.month half_next.day %}">次回</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            {% for w in week_names %}
+            <th>{{ w }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+
+    {% if month_current.day <= 15 %}
+    <tbody>
+        {% for week in month_half_days %}
+        <tr>
+            {% for day in week %}
+            {% if now == day %}
+            <td class="table-success">
+                {% else %}
+            <td>
+                {% endif %}
+                {% if month_current.month != day.month %}
+                <!-- {{ day | date:"m/d" }} -->
+                {% elif day.day > 15 %}
+
+                {% else %}
+                {{ day.day }}
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+
+    {% else %}
+    <tbody>
+        {% for week in month_half_days %}
+        <tr>
+            {% for day in week %}
+            {% if now == day %}
+            <td class="table-success">
+                {% else %}
+            <td>
+                {% endif %}
+                {% if month_current.month != day.month %}
+                <!-- {{ day | date:"m/d" }} -->
+                {% elif day.day <= 15 %}
+                {% else %}
+                {{ day.day }}
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    {% endif %}
+
+</table>
+{% endblock body %}

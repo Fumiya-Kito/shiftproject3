@@ -1,0 +1,21 @@
+{% extends 'account/base.html' %}
+
+<div class="alert alert-primary" role="alert">
+    Shift App
+</div>
+
+{% block body %}
+
+<p><a href="{% url 'month_with_forms' user.pk %}">シフト送信画面へ</a>
+</p>
+
+<div class="container">
+    {% for item in object_list %}
+    <div class="alert alert-success" role="alert">
+        <p>名前： <a href="{% url 'account_detail' item.pk%}">{{ item.name }}</a></p>
+    </div>
+    {% endfor %}
+    <a href="{% url 'logout' %}">ログアウト</a>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,51 @@
+{% extends 'account/base.html' %}
+
+<div class="alert alert-primary" role="alert">
+    Shift App
+</div>
+
+
+{% block body %}
+
+<div class="container">
+
+
+
+    <div class="account-box">
+        <h1>Account</h1>
+        <div class="account-element">
+            <p>【名前】<br> {{ object.name }}</p>
+        </div>
+        <div class="account-element">
+            <p>【性別】 <br> {{ object.get_gender_display }}</p>
+        </div>
+        <div class="account-element">
+            <p>【所属】 <br>
+                {% for item in object.section.all %}
+                {{ item.get_name_display }} <br>
+                {% endfor%}
+            </p>
+        </div>
+        <div class="account-element">
+            <p>【役職】 <br> {{ object.get_duties_display }}</p>
+        </div>
+
+        {% if object.image %}
+        <div class="alert alert-success" role="alert">
+            <p><img src="{{ object.image.url }}" width=120></p>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="url-box">
+        <p><a href="{% url 'month_with_schedule' user.pk %}">シフト確認画面へ</a>
+        <p><a href="{% url 'month_with_forms' user.pk %}">シフト送信画面へ</a>
+        <p><a href="{% url 'logout' %}">ログアウト</a>
+    </div>
+
+
+
+</div>
+
+{% endblock body %}

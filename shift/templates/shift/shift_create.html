@@ -1,0 +1,22 @@
+{% extends 'account/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="sign_form">
+
+        <h1>シフト提出</h1>
+
+        <form method='POST'>
+            {% csrf_token %}
+            {{ shift_form|crispy }}
+
+            <button type="submit" class="btn btn-primary">Submit!</button>
+
+        </form>
+    </div>
+</div>
+
+{% endblock body %}

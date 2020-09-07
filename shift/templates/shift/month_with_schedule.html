@@ -1,0 +1,63 @@
+{% extends 'account/base.html' %}
+
+{% block body %}
+
+<style>
+    table {
+        table-layout: fixed;
+    }
+
+    td>div {
+        height: 100px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+<a href="{% url 'month_with_schedule' user.pk half_previous.year half_previous.month half_previous.day %}">前月</a>
+{{ month_current | date:"Y年m月" }}
+<a href="{% url 'month_with_schedule' user.pk half_next.year half_next.month half_next.day %}">次月</a>
+
+<h2>希望シフト確認</h2>
+<p><a href="{% url 'account_detail' user.pk %}">マイページへ</a>
+<table class="table">
+    <thead>
+        <tr>
+            {% for w in week_names %}
+            <th>{{ w }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for week_day_schedles in month_day_schedules %}
+        <tr>
+            {% for day, schedules in week_day_schedles.items %}
+            {% if now == day %}
+            <td class="table-success">
+                {% else %}
+            <td>
+                {% endif %}
+
+                <div>
+                    {% if month_current.month != day.month %}
+                    {{ day | date:"m/d" }}
+                    {% else %}
+                    {{ day.day }}
+                    {% endif %}
+                    <br>
+                    {% for schedule in schedules %}
+                    出勤: {{ schedule.is_work }}
+                    <br>
+                    開始: {{ schedule.start_time }}
+                    <br>
+                    終了: {{ schedule.end_time }}
+                    {% endfor %}
+
+                </div>
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock body %}

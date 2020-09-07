@@ -1,0 +1,104 @@
+{% extends 'account/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+
+</p>
+
+<style>
+    table {
+        table-layout: fixed;
+    }
+</style>
+
+<a href="{% url 'month_with_forms' user.pk half_previous.year half_previous.month half_previous.day %}">前月</a>
+{{ month_current | date:"Y年m月d日〜" }}
+<a href="{% url 'month_with_forms' user.pk half_next.year half_next.month half_next.day %}">次月</a>
+
+<h2>希望シフト提出</h2>
+<p><a href="{% url 'account_detail' user.pk %}">マイページへ</a>
+
+<form action="" method="POST">{% csrf_token %}
+    {{ month_formset.management_form }}
+    <table class="table">
+        <thead>
+            <tr>
+                {% for w in week_names %}
+                <th>{{ w }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+
+        {% if month_current.day <= 15 %}
+
+        <tbody>
+            {% for week_day_forms in month_day_forms %}
+            <tr>
+                {% for day, forms in week_day_forms.items %}
+                {% if now == day %}
+                <td class="table-success">
+                    {% else %}
+                <td>
+                    {% endif %}
+
+                    <div>
+
+                        {% if day.day > 15 %}
+                        {% else %}
+                        {{ day | date:"m/d" }}
+                        <hr>
+                        {% endif %}
+
+                        {% for form in forms %}
+                        {{ form|crispy }}
+                        {% endfor %}
+
+
+                    </div>
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+
+        {% else %}
+
+        <tbody>
+            {% for week_day_forms in month_day_forms %}
+            <tr>
+                {% for day, forms in week_day_forms.items %}
+                {% if now == day %}
+                <td class="table-success">
+                    {% else %}
+                <td>
+                    {% endif %}
+
+                    <div>
+
+
+                        {% if day.day <= 15 %}
+                        {% else %}
+                        {{ day | date:"m/d" }}
+                        {% endif %}
+
+                        {% for form in forms %}
+                        {{ form|crispy }}
+                        {% endfor %}
+
+
+                    </div>
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+
+        {% endif %}
+
+    </table>
+
+    <button type="submit" class="btn btn-primary">送信</button>
+</form>
+
+{% endblock body %}
