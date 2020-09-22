@@ -47,7 +47,6 @@ class Account(models.Model):
     section = models.ManyToManyField(Section, verbose_name='セクション', blank=True)
     gender = models.CharField(verbose_name='性別', max_length=1, choices=GENDER_CHOICES, default='1')
     duties =  models.CharField(verbose_name='役職', max_length=1, choices=DUTIES_CHOICES, default='3')
-    image = models.ImageField(verbose_name='顔写真', upload_to='', null=True, blank=True)
 
     def __str__(self):
         return self.name
