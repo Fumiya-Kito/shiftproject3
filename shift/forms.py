@@ -10,7 +10,7 @@ class ShiftCreateForm(forms.ModelForm):
     class Meta:
         model = Shift
         # exclude = ['user', 'create_at', 'description']
-        fields = ('is_work', 'start_time', 'end_time', 'date',)
+        fields = ('is_work', 'start_time', 'end_time', 'date',) 
         widgets = {
             'start_time': forms.Select(choices=HOUR_CHOICES),
             'end_time': forms.Select(choices=HOUR_CHOICES),
@@ -45,3 +45,6 @@ class ShiftCreateForm(forms.ModelForm):
             )
 
         return end_time
+
+    # def is_work_save(self):
+    #     start_time = self.cleaned_data['start_time']

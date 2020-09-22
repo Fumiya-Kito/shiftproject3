@@ -113,7 +113,7 @@ class MonthWithFormsMixin(MonthCalendarMixin):
             date = getattr(instance, self.date_field)
             day_forms[date].append(bound_form)
 
-        # スケジュールがある各日に、そのスケジュールの更新用フォームを配置
+        # # スケジュールがある各日に、そのスケジュールの更新用フォームを配置
         # for bound_form in formset.initial_forms:
         #     instance = bound_form.instance
         #     date = getattr(instance, self.date_field)
@@ -131,6 +131,9 @@ class MonthWithFormsMixin(MonthCalendarMixin):
         # day_forms辞書を、周毎に分割する。[{1日: 1日のフォーム...}, {8日: 8日のフォーム...}, ...]
         # 7個ずつ取り出して分割しています。
         return [{key: day_forms[key] for key in itertools.islice(day_forms, i, i+7)} for i in range(0, days_count, 7)]
+
+
+
 
     def get_month_calendar(self):
         calendar_context = super().get_month_calendar()

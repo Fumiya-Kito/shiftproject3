@@ -48,14 +48,48 @@ class MonthWithFormsCalendar(LoginRequiredMixin, mixins.MonthWithFormsMixin, gen
             # formset.save()
             shifts = formset.save(commit=False)
             for shift in shifts:
-                # if shift.is_work != False:
-                shift.user = user
-                shift.save()
-                    
+                if shift.is_work != False:
+                    shift.user = user
+                    shift.save()
 
             return redirect('month_with_forms', user_pk=user_pk)
 
         return render(request, self.template_name, context)
+
+
+
+# class MonthWithUpdateFormsCalendar(LoginRequiredMixin, mixins.MonthWithUpdateFormsMixin, generic.View):
+#     """フォーム付きの月間カレンダーを表示するビュー"""
+#     template_name = 'shift/month_with_update_forms.html'
+#     model = Shift
+#     date_field = 'date'
+#     form_class = ShiftCreateForm
+
+#     def get(self, request, **kwargs):
+#         context = self.get_month_calendar()
+#         context['user'] = get_object_or_404(User, pk=self.kwargs['user_pk'])
+#         return render(request, self.template_name, context)
+
+#     def post(self, request, **kwargs):
+#         context = self.get_month_calendar()
+#         user_pk = self.kwargs['user_pk']
+#         user = get_object_or_404(User, pk=user_pk)
+#         context['user'] = user
+#         # context['start_time'] = form.cleaned_data["start_time"]
+
+#         formset = context['month_formset']
+#         if formset.is_valid():
+#             # formset.save()
+#             shifts = formset.save(commit=False)
+#             for shift in shifts:
+#                 # if shift.is_work != False:
+#                 shift.user = user
+#                 shift.save()
+                    
+
+#             return redirect('month_with_forms', user_pk=user_pk)
+
+#         return render(request, self.template_name, context)
 
 
 class MonthWithScheduleCalendar(LoginRequiredMixin, mixins.MonthWithScheduleMixin, generic.TemplateView):

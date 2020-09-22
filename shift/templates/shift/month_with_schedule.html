@@ -13,9 +13,9 @@
         white-space: nowrap;
     }
 </style>
-<a href="{% url 'month_with_schedule' user.pk half_previous.year half_previous.month half_previous.day %}">前月</a>
+<a href="{% url 'month_with_schedule' user.pk half_previous.year half_previous.month half_previous.day %}">前回</a>
 {{ month_current | date:"Y年m月" }}
-<a href="{% url 'month_with_schedule' user.pk half_next.year half_next.month half_next.day %}">次月</a>
+<a href="{% url 'month_with_schedule' user.pk half_next.year half_next.month half_next.day %}">次回</a>
 
 <h2>希望シフト確認</h2>
 <p><a href="{% url 'account_detail' user.pk %}">マイページへ</a>

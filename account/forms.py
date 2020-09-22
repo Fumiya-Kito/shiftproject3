@@ -14,7 +14,7 @@ class AccountCreateForm(forms.ModelForm):
 
     class Meta:
         model = Account
-        exclude = ('user','image')
+        exclude = ('user',)
         # widgets = {
         #     name: forms.HiddenInput,
         # }

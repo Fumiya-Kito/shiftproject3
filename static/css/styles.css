@@ -7,36 +7,14 @@ body {
 
 .bg-home {
     width: 100%;
-    height: 100vh;
-    background: #000;  
+    height: 50vh; 
+    background: #fff;  
     position: relative;
     overflow: hidden;
     /* background: linear-gradient(to top, rgba(217, 175, 217, 0.7)0%, rgba(151, 217, 225, 0.7) 100%); */
     /* opacity: .3; */
 }
 
-.bg-home::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: url(../../media/home_wp.jpg) no-repeat;
-    background-size: cover;
-    opacity: .3;
-    animation: anim 40s linear infinite;
-}
-
-@keyframes anim {
-    50%{
-        transform: scale(1.25);
-    }
-    100%{
-        transform: scale(1);
-
-    }
-}
 
 .home-content {
     position:absolute ;
@@ -52,7 +30,7 @@ body {
 }
 
 .home-content h1 {
-    color: #ffffff;
+    color: #000;
     text-transform: uppercase;
     font-size: 50px;
     font-weight: 900;
@@ -197,3 +175,22 @@ body {
     background: #2ecc71;
 }
 
+button {
+    border: 0;
+    background: #3498db;
+    display: block;
+    margin: 20px auto ;
+    text-align: center;
+    /* border: 2px solid #23cc71; */
+    padding: 10px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px ;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+button:hover{
+    text-decoration: none ;
+    background: #2ecc71;
+}
