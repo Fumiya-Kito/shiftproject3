@@ -37,6 +37,7 @@ def register_user(request):
         
         return redirect('login')
 
+
     context = {
         'user_form':user_form,
         'profile_form':account_form,

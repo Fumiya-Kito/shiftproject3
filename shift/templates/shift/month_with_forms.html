@@ -12,12 +12,15 @@
     }
 </style>
 
-<a href="{% url 'month_with_forms' user.pk half_previous.year half_previous.month half_previous.day %}">前回</a>
-{{ month_current | date:"Y年m月d日〜" }}
-<a href="{% url 'month_with_forms' user.pk half_next.year half_next.month half_next.day %}">次回</a>
 
-<h2>希望シフト提出</h2>
-<p><a href="{% url 'account_detail' user.pk %}">マイページへ</a>
+
+<div class="box">
+    <h2>希望シフト提出</h2>
+    <a href="{% url 'month_with_forms' user.pk half_previous.year half_previous.month half_previous.day %}">＜＜</a>
+    {{ month_current | date:"Y年m月d日〜" }}
+    <a href="{% url 'month_with_forms' user.pk half_next.year half_next.month half_next.day %}">＞＞</a>
+</div>
+
 
 <form action="" method="POST">{% csrf_token %}
     {{ month_formset.management_form }}

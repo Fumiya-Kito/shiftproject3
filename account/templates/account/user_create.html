@@ -3,21 +3,20 @@
 
 {% block body %}
 
-<div class="container">
-    <p><a href="{% url 'login' %}">ログインはこちらから</a>
-    <div class="sign_form">
-        <h1>SIGN UP</h1>
-        <form class="box" action="" method="POST">
-            {% csrf_token %}
+<!-- <div class="container""> -->
+<div class="box">
+    <h1>SIGN UP</h1>
+    <form class="box" action="" method="POST">
+        {% csrf_token %}
 
-            {{ user_form | crispy }}
+        {{ user_form | crispy }}
 
-            {{ profile_form | crispy }}
-            <input type="submit" class="btn btn-primary" value="送信">
+        {{ profile_form | crispy }}
+        <input type="submit" class="btn btn-primary" value="送信">
 
 
-        </form>
-    </div>
+    </form>
 </div>
+<!-- </div> -->
 
 {% endblock body %}

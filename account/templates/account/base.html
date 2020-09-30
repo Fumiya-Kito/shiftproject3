@@ -10,19 +10,45 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f86e995da6.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-light bg-light">
-        <!-- if user is not None: -->
+    <div class="header">
+        <h2 class="logo">Shift App</h2>
+
+        <input type="checkbox" id="chk">
+        <label for="chk" class="show-menu-btn">
+            <i class="fas fa-bars"></i>
+        </label>
+
+        <ul class="menu">
+            {% if user.pk %}
+            <a href="{% url 'account_detail' user.pk %}">MY PAGE</a>
+            <a href="{% url 'month_with_forms' user.pk %}">SUBMISSION</a>
+            <a href="{% url 'month_with_schedule' user.pk %}">CONFIRMATION</a>
+            {% else %}
+            <a href="{% url 'index' %}">HOME</a>
+            <a href="{% url 'login' %}">LOGIN</a>
+            <a href="{% url 'register_user' %}">SIGN UP</a>
+            {% endif %}
+        </ul>
+        <label for="chk" class="hide-menu-btn">
+            <i class="fas fa-times"></i>
+        </label>
+    </div>
+
+
+
+
+    <!-- <nav class="navbar navbar-light bg-light">
         {% if user.pk %}
         <a class="navbar-brand" href="{% url 'account_detail' user.pk %}">Shift App</a>
-        <!-- else -->
         {% else %}
         <a class="navbar-brand" href="{% url 'index' %}">Shift App</a>
         {% endif %}
-    </nav>
+    </nav> -->
 
 
     {% block body %}

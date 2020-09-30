@@ -25,7 +25,7 @@ SECRET_KEY = 'nbv&1+&g=@aai=(@9^f&5_b^+f7uozehkp2!4q6=k$32u1(&xe'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,12 +79,70 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+
+# if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+#     # Running on production App Engine, so use a Google Cloud SQL database.
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'shiftappdb',
+#             'USER': 'shiftappuser',
+#             'PASSWORD': 'kito1212',
+#             'HOST': '/cloudsql/shiftproject-290305:asia-northeast1:shiftapp',
+#         }
+#     }
+# elif os.getenv('SETTINGS_MODE') == 'prod':
+#     # Running in development, but want to access the Google Cloud SQL instance in production.
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'INSTANCE': '34.84.4.67',
+#             'NAME': 'shiftappdb',
+#             'USER': 'shiftappuser',
+#             'PASSWORD': 'kito1212',
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         }
+#     }
+#     STATICFILES_DIRS = [
+#         os.path.join(BASE_DIR, 'static')
+#     ]
+    
+
+#TODO 成功用
+if os.getenv('GAE_APPLICATION', None):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'shiftappdb',
+            'USER': 'shiftappuser',
+            'PASSWORD': 'kito1212',
+            'HOST': '/cloudsql/shiftproject-290305:asia-northeast1:shiftapp',
+        }
     }
-}
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
+
+
+
+
 
 
 # Password validation
@@ -124,9 +182,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'

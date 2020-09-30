@@ -20,16 +20,15 @@ class AccountCreateForm(forms.ModelForm):
         # }
     
     
-    # def clean_section(self):
-    #     section = self.cleaned_data['section']
+    def clean_section(self):
+        section = self.cleaned_data['section']
 
-        # if section is not None:
-        #     return section
-        # else:
-        #     raise forms.ValidationError(
-        #         'セクションを選択してください'
-        #     )
-
-        # return section
+        if section is not None:
+            return section
+        else:
+            raise forms.ValidationError(
+                'セクションを選択してください'
+            )
+        return section
 
 # ? AccountとUserの紐付けはviewで行う！

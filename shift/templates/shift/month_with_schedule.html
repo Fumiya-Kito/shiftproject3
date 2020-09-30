@@ -7,19 +7,31 @@
         table-layout: fixed;
     }
 
-    td>div {
-        height: 100px;
-        overflow: hidden;
+    td {
+        background-color: aqua;
+        height: 170px;
+        text-align: center;
+        overflow: scroll;
         white-space: nowrap;
     }
-</style>
-<a href="{% url 'month_with_schedule' user.pk half_previous.year half_previous.month half_previous.day %}">前回</a>
-{{ month_current | date:"Y年m月" }}
-<a href="{% url 'month_with_schedule' user.pk half_next.year half_next.month half_next.day %}">次回</a>
 
-<h2>希望シフト確認</h2>
-<p><a href="{% url 'account_detail' user.pk %}">マイページへ</a>
-<table class="table">
+    td>div {
+        text-align: center;
+        height: 170px;
+        overflow: scroll;
+        white-space: nowrap;
+        background-color: red;
+    }
+</style>
+<div class="box">
+    <h2>希望シフト確認</h2>
+
+    <a href="{% url 'month_with_schedule' user.pk half_previous.year half_previous.month half_previous.day %}">＜＜</a>
+    {{ month_current | date:"Y年m月" }}
+    <a href="{% url 'month_with_schedule' user.pk half_next.year half_next.month half_next.day %}">＞＞</a>
+
+</div>
+<table class="table" border="1">
     <thead>
         <tr>
             {% for w in week_names %}
@@ -37,22 +49,29 @@
             <td>
                 {% endif %}
 
-                <div>
-                    {% if month_current.month != day.month %}
-                    {{ day | date:"m/d" }}
-                    {% else %}
-                    {{ day.day }}
-                    {% endif %}
-                    <br>
-                    {% for schedule in schedules %}
-                    出勤: {{ schedule.is_work }}
-                    <br>
-                    開始: {{ schedule.start_time }}
-                    <br>
-                    終了: {{ schedule.end_time }}
-                    {% endfor %}
 
-                </div>
+                {% if month_current.month != day.month %}
+                {{ day | date:"m/d" }}
+                {% else %}
+                {{ day.day }}
+                {% endif %}
+                <br>
+                {% for schedule in schedules %}
+                【出勤】
+                <br>
+                {{ schedule.is_work }}
+                <br>
+                【出勤時間】
+                <br>
+                {{ schedule.start_time }}
+                <br>
+                【退勤時間】
+                <br>
+                {{ schedule.end_time }}
+                <br>
+                {% endfor %}
+
+
             </td>
             {% endfor %}
         </tr>
